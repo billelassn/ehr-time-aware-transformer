@@ -19,7 +19,7 @@ We used the **MIMIC-IV v3.1** dataset (approx. 29,000 selected patient trajector
 ## Methodology
 We treated patient history as a temporal sequence. We used a sliding window approach with a 12h observation window and a 6h prediction window.
 
-![Sampling Strategy](.image/sampling.png)
+![Sampling Strategy](.images/sampling.png)
 *Figure 1: Data sampling strategy with observation and prediction windows.*
 
 We compared three architectures:
@@ -27,7 +27,7 @@ We compared three architectures:
 2.  **Sequential:** LSTM (Long Short-Term Memory).
 3.  **Proposed Model:** Time-Aware Transformer (GPT-like causal architecture).
 
-![Model Architecture](.image/architecture.png)
+![Model Architecture](.images/architecture.png)
 *Figure 2: Overview of the Time-Aware Transformer architecture.*
 
 ## Results
@@ -42,7 +42,7 @@ We evaluated the models on AUROC and AUPRC metrics.
 ## Interpretability
 While performance is similar to LSTM, the Transformer offers explainability through Attention Maps. The model successfully identifies clinical shifts, such as moving focus from routine care events to critical biomarkers (e.g., High Lactate) when they appear.
 
-![Attention Heatmap](.image/heatmap.png)
+![Attention Heatmap](.images/heatmap.png)
 *Figure 3: Attention weights shifting to 'High Lactate' event.*
 
 ## Limitations
