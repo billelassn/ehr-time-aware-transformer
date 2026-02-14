@@ -4,9 +4,9 @@
 **Context:** Deep Learning for Electronic Health Records (EHR) Project
 
 ## Project Overview
-[cite_start]Sepsis is a leading cause of mortality in ICUs (approx. 20% of global deaths)[cite: 10, 11]. [cite_start]Early prediction is critical as mortality increases by 7.6% for every hour of delayed treatment[cite: 13, 14].
+[cite_start]Sepsis is a leading cause of mortality in ICUs (approx. 20% of global deaths)[cite: 10]. [cite_start]Early prediction is critical as mortality increases by 7.6% for every hour of delayed treatment[cite: 13].
 
-[cite_start]The goal of this project is to predict sepsis onset by modeling the full trajectory of patient events, rather than relying on static snapshots at admission[cite: 1, 34].
+The goal of this project is to predict sepsis onset by modeling the full trajectory of patient events, rather than relying on static snapshots at admission.
 
 ## Dataset & Access
 [cite_start]We used the **MIMIC-IV v3.1** dataset (approx. 29,000 selected patient trajectories)[cite: 66, 71].
@@ -22,8 +22,8 @@ We treated patient history as a temporal sequence (similar to NLP sentences) and
 1.  [cite_start]**Baseline:** XGBoost with Bag of Words approach[cite: 94].
 2.  [cite_start]**Sequential:** LSTM (Long Short-Term Memory) to capture time dependencies[cite: 125].
 3.  [cite_start]**Proposed Model:** Time-Aware Transformer (GPT-like causal architecture)[cite: 152].
-    * [cite_start]Features: Dual embedding (Categorical codes + Continuous time)[cite: 173].
-    * [cite_start]Loss: Binary Focal Loss to handle class imbalance[cite: 175].
+    * Features: Dual embedding (Categorical codes + Continuous time).
+    * Loss: Binary Focal Loss to handle class imbalance.
 
 ![Model Architecture](./images/architecture.png)
 *Figure 1: Overview of the Time-Aware Transformer architecture.*
@@ -37,16 +37,12 @@ We evaluated the models on AUROC and AUPRC metrics.
 | LSTM | 0.840 | 0.537 | 70% |
 | **Transformer** | **0.840** | **0.520** | **73%** |
 
-[cite_start][cite: 105, 147, 159, 161]
-
-![ROC Curves](./images/results_curves.png)
-
 ## Interpretability
-While performance is similar to LSTM, the Transformer offers explainability through Attention Maps. [cite_start]The model successfully identifies clinical shifts, such as moving focus from routine care events to critical biomarkers (e.g., High Lactate) when they appear[cite: 213, 214].
+While performance is similar to LSTM, the Transformer offers explainability through Attention Maps. [cite_start]The model successfully identifies clinical shifts, such as moving focus from routine care events to critical biomarkers (e.g., High Lactate) when they appear[cite: 213, 215].
 
 ![Attention Heatmap](./images/heatmap.png)
 *Figure 2: Attention weights shifting to 'High Lactate' event.*
 
 ## Limitations
-* [cite_start]Performance on structured data alone is limited (AUPRC ~0.52)[cite: 228].
-* [cite_start]Future work involves integrating unstructured clinical notes (NLP) to capture more context[cite: 237].
+* [cite_start]**Performance Ceiling:** Results plateaued at AUPRC ~0.52 using structured data alone[cite: 228].
+* [cite_start]**Future Work:** Integrating unstructured clinical notes (NLP) could further improve performance by capturing narrative context[cite: 237].
