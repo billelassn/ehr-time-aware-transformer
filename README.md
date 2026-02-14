@@ -4,12 +4,12 @@
 **Context:** Deep Learning for Electronic Health Records (EHR) Project
 
 ## Project Overview
-[cite_start]Sepsis is a leading cause of mortality in ICUs (approx. 20% of global deaths)[cite: 10]. [cite_start]Early prediction is critical as mortality increases by 7.6% for every hour of delayed treatment[cite: 13].
+Sepsis is a leading cause of mortality in ICUs (approx. 20% of global deaths). Early prediction is critical as mortality increases by 7.6% for every hour of delayed treatment.
 
 The goal of this project is to predict sepsis onset by modeling the full trajectory of patient events, rather than relying on static snapshots at admission.
 
 ## Dataset & Access
-[cite_start]We used the **MIMIC-IV v3.1** dataset (approx. 29,000 selected patient trajectories)[cite: 66, 71].
+We used the **MIMIC-IV v3.1** dataset (approx. 29,000 selected patient trajectories).
 
 **Important:** This dataset is restricted. Due to the PhysioNet Data Use Agreement (DUA), **no data files are included in this repository**. To reproduce the experiments:
 1. Obtain credentialed access via [PhysioNet](https://physionet.org/).
@@ -17,16 +17,18 @@ The goal of this project is to predict sepsis onset by modeling the full traject
 3. Run the preprocessing scripts.
 
 ## Methodology
-We treated patient history as a temporal sequence (similar to NLP sentences) and compared three architectures:
+We treated patient history as a temporal sequence. We used a sliding window approach with a 12h observation window and a 6h prediction window.
 
-1.  [cite_start]**Baseline:** XGBoost with Bag of Words approach[cite: 94].
-2.  [cite_start]**Sequential:** LSTM (Long Short-Term Memory) to capture time dependencies[cite: 125].
-3.  [cite_start]**Proposed Model:** Time-Aware Transformer (GPT-like causal architecture)[cite: 152].
-    * Features: Dual embedding (Categorical codes + Continuous time).
-    * Loss: Binary Focal Loss to handle class imbalance.
+![Sampling Strategy](sampling.png)
+*Figure 1: Data sampling strategy with observation and prediction windows.*
 
-![Model Architecture](./images/architecture.png)
-*Figure 1: Overview of the Time-Aware Transformer architecture.*
+We compared three architectures:
+1.  **Baseline:** XGBoost with Bag of Words approach.
+2.  **Sequential:** LSTM (Long Short-Term Memory).
+3.  **Proposed Model:** Time-Aware Transformer (GPT-like causal architecture).
+
+![Model Architecture](architecture.png)
+*Figure 2: Overview of the Time-Aware Transformer architecture.*
 
 ## Results
 We evaluated the models on AUROC and AUPRC metrics.
@@ -38,11 +40,11 @@ We evaluated the models on AUROC and AUPRC metrics.
 | **Transformer** | **0.840** | **0.520** | **73%** |
 
 ## Interpretability
-While performance is similar to LSTM, the Transformer offers explainability through Attention Maps. [cite_start]The model successfully identifies clinical shifts, such as moving focus from routine care events to critical biomarkers (e.g., High Lactate) when they appear[cite: 213, 215].
+While performance is similar to LSTM, the Transformer offers explainability through Attention Maps. The model successfully identifies clinical shifts, such as moving focus from routine care events to critical biomarkers (e.g., High Lactate) when they appear.
 
-![Attention Heatmap](./images/heatmap.png)
-*Figure 2: Attention weights shifting to 'High Lactate' event.*
+![Attention Heatmap](heatmap.png)
+*Figure 3: Attention weights shifting to 'High Lactate' event.*
 
 ## Limitations
-* [cite_start]**Performance Ceiling:** Results plateaued at AUPRC ~0.52 using structured data alone[cite: 228].
-* [cite_start]**Future Work:** Integrating unstructured clinical notes (NLP) could further improve performance by capturing narrative context[cite: 237].
+* **Performance Ceiling:** Results plateaued at AUPRC ~0.52 using structured data alone.
+* **Future Work:** Integrating unstructured clinical notes (NLP) could further improve performance by capturing narrative context.
